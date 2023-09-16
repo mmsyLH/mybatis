@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 配置 MyBatis 自带的日志输出, 还可以是其它日志比如 SLF4J | LOG4J | LOG4J2 |
+        JDK_LOGGING 等 settings必须放前面-->
+    <settings>
+        <!--选项里自带的就这一个能用-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+
+    <!--配置别名-->
+    <!--方式1-->
+    <!--<typeAliases>-->
+    <!--    <typeAlias alias="Monster" type="asia.lhweb.entity.Monster"/>-->
+    <!--</typeAliases>-->
+    <!--方式2-->
+    <typeAliases>
+        <package name="asia.lhweb.entity"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!--配置事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据源-->
+            <dataSource type="POOLED">
+                <!--<property name="driver" value="${driver}"/>-->
+                <!--<property name="url" value="${url}"/>-->
+                <!--<property name="username" value="${username}"/>-->
+                <!--<property name="password" value="${password}"/>-->
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <!--
+                jdbc:mysql 协议
+                127.0.0.1:3306 ip+端口
+                mybatis 数据库名
+                &amp   &
+                useSSL=true 表示使用安全连接
+                useUnicode=true 防止编码错误
+                characterEncoding=UTF-8 防止中文乱码
+                -->
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/
+                mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--
+    配置需要管理的mapper.xml文件
+    -->
+    <mappers>
+        <mapper resource="mapper/MonsterMapper.xml"/>
+    </mappers>
+</configuration>

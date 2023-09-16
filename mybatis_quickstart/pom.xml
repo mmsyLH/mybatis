@@ -23,4 +23,25 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <!--在 build 中配置 resources，来防止我们资源导出失败的问题
+        1. 不同的 idea/maven 可能提示的错误不一样
+        2. 不变应万变，少什么文件，就增加相应配置即可
+-->
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
