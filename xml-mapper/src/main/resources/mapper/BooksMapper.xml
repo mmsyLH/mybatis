@@ -18,7 +18,8 @@
     </insert>
 
     <select id="getBookById" resultType="books">
-        select * from books
+        select *
+        from books
         where `book_id` = #{bookId}
     </select>
     <update id="updateBook" parameterType="books"
@@ -36,8 +37,33 @@
         from `books`
         where `book_id` = #{bookId}
     </delete>
-    <select id="findAllBook" resultType="books">
+
+    <!--解决属性与数据库列名不一致第一种方式-->
+    <!--<select id="findAllBook" resultType="books">-->
+    <!--    select *-->
+    <!--    from `books`-->
+    <!--</select>-->
+    <!--第二种方式-->
+    <select id="findAllBook" resultMap="findAllBookMap">
         select *
         from `books`
     </select>
+    <!--
+        1．配置方法public List<User> findAllUser( );
+        2．返回所有的user信息
+        3．按照传统的方式完成，会出现什么问题?=>如果对象属性名和表字段相同时，就会设置值，如果不同，就会是默认值
+        4．我们可以使用resultMap来解决
+        5. resultHap :表示我们要定义一个resultMap
+        6. id="findAllUserMap" => id 就是程序员指定的resultMap id，后面通过id可以使用他
+        7. type="User" ,一就是你需要返回的对象类型
+        8. <result column="book_id" property="bookId"/>对应关系
+    -->
+    <!--
+    第三种 使用as
+    如果是Mybatis-Plus 使用@TableField
+    -->
+    <resultMap id="findAllBookMap" type="books">
+        <result column="book_id" property="bookId"/>
+        <result column="book_name" property="bookName"/>
+    </resultMap>
 </mapper>

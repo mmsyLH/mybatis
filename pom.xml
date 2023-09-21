@@ -19,6 +19,7 @@
     <modules>
         <module>mybatis_quickstart</module>
         <module>xml-mapper</module>
+        <module>dynamic</module>
     </modules>
 
     <properties>

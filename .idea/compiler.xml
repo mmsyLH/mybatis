@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="mybatis_quickstart" />
         <module name="xml-mapper" />
+        <module name="dynamic" />
       </profile>
     </annotationProcessing>
   </component>
