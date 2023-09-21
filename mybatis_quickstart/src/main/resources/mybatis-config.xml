@@ -10,6 +10,8 @@
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
+    <!--引入外部的配置文件-->
+    <!--<properties resource="jdbc.properties"/>-->
 
     <!--配置别名-->
     <!--方式1-->
@@ -27,11 +29,11 @@
             <transactionManager type="JDBC"/>
             <!--配置数据源-->
             <dataSource type="POOLED">
-                <!--<property name="driver" value="${driver}"/>-->
-                <!--<property name="url" value="${url}"/>-->
-                <!--<property name="username" value="${username}"/>-->
-                <!--<property name="password" value="${password}"/>-->
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <!--<property name="driver" value="${jdbc.driver}"/>-->
+                <!--<property name="url" value="${jdbc.url}"/>-->
+                <!--<property name="username" value="${jdbc.username}"/>-->
+                <!--<property name="password" value="${jdbc.password}"/>-->
+
                 <!--
                 jdbc:mysql 协议
                 127.0.0.1:3306 ip+端口
@@ -43,15 +45,21 @@
                 -->
                 <property name="url" value="jdbc:mysql://127.0.0.1:3306/
                 mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
                 <property name="username" value="root"/>
                 <property name="password" value="root"/>
             </dataSource>
         </environment>
     </environments>
+
+
     <!--
     配置需要管理的mapper.xml文件
     -->
     <mappers>
-        <mapper resource="mapper/MonsterMapper.xml"/>
+        <!--<mapper resource="mapper/MonsterMapper.xml"/>-->
+        <!--如果是用注解，可不用再引入xml,但是需要引入包含注解的类-->
+        <!--<mapper class="asia.lhweb.mapper.MonsterAnnotation"/>-->
+        <package name="asia.lhweb.mapper"/>
     </mappers>
 </configuration>
