@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asia.lhweb.mapper.BooksMapper">
+    <!--
+    /**
+     * 拿到返回的Id
+     * 1  useGeneratedKeys = true 返回自增的值
+     * 2  keyProperty = "id" 自增对应的对象字段
+     * 3  keyColumn = "id" 自增对应的表字段
+     * 4 如果keyProperty和keyColumn一致可以不写keyColumn
+     */
+    -->
+    <insert id="addBook" parameterType="books"
+            useGeneratedKeys="true" keyProperty="bookId" keyColumn="book_id">
+        insert into `books` (book_name, author, publisher)
+        VALUES (#{bookName}, #{author}, #{publisher})
+    </insert>
+
+    <select id="getBookById" resultType="books">
+        select * from books
+        where `book_id` = #{bookId}
+    </select>
+    <update id="updateBook" parameterType="books"
+            useGeneratedKeys="true" keyProperty="book_id">
+        update `books`
+        set `book_id`=#{bookId},
+            `book_name`=#{bookName},
+            `author`=#{author},
+            `publisher`=#{publisher}
+        where `book_id` = #{bookId}
+    </update>
+
+    <delete id="delBookById" parameterType="Integer">
+        delete
+        from `books`
+        where `book_id` = #{bookId}
+    </delete>
+    <select id="findAllBook" resultType="books">
+        select *
+        from `books`
+    </select>
+</mapper>
