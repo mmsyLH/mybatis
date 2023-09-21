@@ -3,6 +3,7 @@ package asia.lhweb.mapper;
 
 
 import asia.lhweb.entity.Monster;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -13,41 +14,43 @@ import java.util.Map;
  * @author 罗汉
  * @date 2023/09/14
  */
-
 public interface MonsterMapper {
 
     /**
-     * 通过id或名称找到怪物
+     * 按年龄找到怪物
+     * 请查询age大于10的所有妖怪，如果程序员输入的age不大于0,则输出所有的妖怪!
      *
-     * @param monster 怪物
+     * @param age 年龄
      * @return {@link List}<{@link Monster}>
      */
-     List<Monster> findMonsterByIdOrName(Monster monster);
+    abstract List<Monster> findMonsterByAge(@Param(value = "agex")Integer age);//测试if
 
     /**
-     * 根据名字找到怪物(模糊查询)
-     *
-     * @param monster 怪物
-     * @return {@link List}<{@link Monster}>
+     * 需求:查询id大于20的，并且名字是"牛魔王”的所有妖怪,注意，如果名字为空，或者输入的id小于0,则不拼接sql语句
+     * (如果名字为空则不带名字相关的条件)
+     * （如果输入id<0就不带id条件）
+     * @param monster
+     * @return
      */
-     List<Monster> findMonsterByName(Monster monster);
+    abstract List<Monster> findMonsterByldAndName(Monster monster);//测试whre
 
     /**
-     * 通过id和找到怪物
-     * 查询id>10 并且salary大于40，要求传入的参数是HashMao
-     *
+     * 1)如果给的name不为空，就按名字查询妖怪，
+     * 2)如果指定的id>0，就按id来查询妖怪
+     * 3)如果前面两个条件都不满足,就默认查询salary > 100的
+     * 4）要求使用choose/when/otherwise标签实现,传入参数要求使用Map
      * @param map
-     * @return {@link List}<{@link Monster}>
+     * @return
      */
-    List<Monster> findMonsterByIdAnd(Map<String,Object>map);
+   abstract List<Monster> findMonsterByldAndName_choose(Map<String, Object> map);//测试choose标签
+
     /**
-     * 通过id和找到怪物
-     * 查询id>10 并且salary大于40，要求传入的参数是HashMap 返回也是HashMap
-     *
+     * 查询id为1 8 9的妖怪
      * @param map
-     * @return {@link List}<{@link Monster}>
+     * @return
      */
-    List<Map<String,Object>>
-    findMonsterByIdAndSalary_PrameterHashMap_ReturnHashMap(Map<String,Object>map);
+    abstract  List<Monster> findMonsterByld_forEach(Map<String, Object> map);//测试foreach标签
+
+    abstract List<Monster> findMonsterByName_Trim(Map<String,Object> map);//trim标签的使用
 
 }

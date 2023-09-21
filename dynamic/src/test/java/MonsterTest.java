@@ -1,4 +1,5 @@
 
+import asia.lhweb.entity.Monster;
 import asia.lhweb.mapper.MonsterMapper;
 import asia.lhweb.util.MybatisUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -6,6 +7,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +32,36 @@ public class MonsterTest {
         System.out.println("MonsterMapper的类型："+monsterMapper);
     }
     @Test
-    public void t1(){
-        System.out.println("ok你好");
+    public void findMonsterByAge(){
+        List<Monster> list = monsterMapper.findMonsterByAge(-1);
+        showList(list);
+    }
+    @Test
+    public void findMonsterByldAndName(){
+        Monster monster = new Monster();
+        // monster.setName("老鼠精1");
+        monster.setId(0);
+        List<Monster> list = monsterMapper.findMonsterByldAndName(monster);
+        showList(list);
+    }
+    @Test
+    public void findMonsterByldAndName_choose(){
+        HashMap<String, Object> map = new HashMap<>();
+        // map.put("name","牛魔王1");
+        // map.put("id",1);
+        List<Monster> list = monsterMapper.findMonsterByldAndName_choose(map);
+        showList(list);
+    }
+    @Test
+    public void findMonsterByld_forEach(){
+        HashMap<String, Object> map = new HashMap<>();
+        ArrayList<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(8);
+        ids.add(9);
+        map.put("ids",ids);
+        List<Monster> list = monsterMapper.findMonsterByld_forEach(map);
+        showList(list);
     }
 
 
@@ -39,7 +70,12 @@ public class MonsterTest {
             System.out.println(o);
         }
     }
-    public void showMap( List<Map<String, Object>> mapList ){
+    public void showMap(List<Monster> mapList ){
+        for (Monster monster : mapList) {
+            System.out.println("取出的mapList里的monster："+monster);
+        }
+    }
+    public void showMap2( List<Map<String, Object>> mapList ){
         for (Map<String, Object> map : mapList) {
             System.out.println("取出的mapList里的map："+map);
             for (Map.Entry<String, Object> entry : map.entrySet()) {
