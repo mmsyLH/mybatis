@@ -63,7 +63,23 @@ public class MonsterTest {
         List<Monster> list = monsterMapper.findMonsterByld_forEach(map);
         showList(list);
     }
+    @Test
+    public void findMonsterByName_Trim(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name","牛魔王2");
+        map.put("age",5);
+        List<Monster> list = monsterMapper.findMonsterByName_Trim(map);
+        showList(list);
+    }
 
+    @Test
+    public void updateMonster_set(){
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("name","牛魔王");
+        map.put("age",599);
+        map.put("id",8);
+        monsterMapper.updateMonster_set(map);
+    }
 
     public void showList(List list){
         for (Object o : list) {

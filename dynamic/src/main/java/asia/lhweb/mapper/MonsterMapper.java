@@ -51,6 +51,20 @@ public interface MonsterMapper {
      */
     abstract  List<Monster> findMonsterByld_forEach(Map<String, Object> map);//测试foreach标签
 
+    /**
+     * 找到怪物名字修剪
+     * 按名字和年龄查询妖怪,如果sql语句开头有and | or就替换成where
+     *
+     * @param map 地图
+     * @return {@link List}<{@link Monster}>
+     */
     abstract List<Monster> findMonsterByName_Trim(Map<String,Object> map);//trim标签的使用
+
+    /**
+     * 请对指定id的妖怪进行修改，如果没有设置新的属性，则保持原来的值
+     * @param map
+     */
+    abstract void updateMonster_set(Map<String, Object> map);//测试Set标签public
+
 
 }

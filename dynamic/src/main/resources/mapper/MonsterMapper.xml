@@ -3,6 +3,34 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="asia.lhweb.mapper.MonsterMapper">
     <!--
+
+    -->
+    <update id="updateMonster_set" parameterType="map">
+        update `monster`
+        <set>
+            <if test="age!=null and age!=''">
+                 `age`=#{age},
+            </if>
+            <if test="birthday!=null and birthday!=''">
+                 `birthday`=#{birthday},
+            </if>
+            <if test="email!=null and email!=''">
+                 `email`=#{email},
+            </if>
+            <if test="gender!=null and gender!=''">
+                 `gender`=#{gender},
+            </if>
+            <if test="name!=null and name!=''">
+                 `name`=#{name},
+            </if>
+            <if test="salary!=null and salary!=''">
+                 `salary`=#{salary},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <!--
     如何把传入的Integer age在test表达式取出来呢？ 传统的写法是错的
     test="#{age} >=0"             X
     使用@Param注解  test="age >=0" √
@@ -22,7 +50,7 @@
         select * from `monster`
         <where>
             <if test="id>=0">
-                and  `id`>#{id}
+                and `id`>#{id}
             </if>
             <if test="name!=null and name!=''">
                 and name =#{name}
@@ -33,18 +61,18 @@
     </select>
 
     <select id="findMonsterByldAndName_choose" parameterType="map" resultType="asia.lhweb.entity.Monster">
-            select * from `monster`
-            <choose>
-                <when test="name!=null and name!=''">
-                    where `name` =#{name}
-                </when>
-                <when test="id>0">
-                    where `id`=#{id}
-                </when>
-                <otherwise>
-                    where `salary`>100
-                </otherwise>
-            </choose>
+        select * from `monster`
+        <choose>
+            <when test="name!=null and name!=''">
+                where `name` =#{name}
+            </when>
+            <when test="id>0">
+                where `id`=#{id}
+            </when>
+            <otherwise>
+                where `salary`>100
+            </otherwise>
+        </choose>
     </select>
 
     <!--
@@ -56,19 +84,47 @@
     -->
     <select id="findMonsterByld_forEach" parameterType="map" resultType="asia.lhweb.entity.Monster">
         SELECT * FROM `monster`
-            <if test="ids!=null and id!=''">
-                <where>
-                    id in
-                    <foreach collection="ids" item="id" open="("  separator="," close=")">
-                                #{id}
-                    </foreach>
-                </where>
+        <if test="ids!=null and id!=''">
+            <where>
+                id in
+                <foreach collection="ids" item="id" open="(" separator="," close=")">
+                    #{id}
+                </foreach>
+            </where>
 
-            </if>
+        </if>
     </select>
+
+
+    <!--
+    如果要使用trim
+    会加入where标签，同时会去除多余的and
+    不用trim的情况-->
+    <!--<select id="findMonsterByName_Trim" resultType="asia.lhweb.entity.Monster">-->
+    <!--    select * from `monster`-->
+    <!--    <where>-->
+    <!--        <if test="name != null and name !=''">-->
+    <!--            lh name =#{name}-->
+    <!--        </if>-->
+    <!--        <if test="age != null and age !=''">-->
+    <!--            and `age`>#{age}-->
+    <!--        </if>-->
+    <!--    </where>-->
+    <!--</select>-->
+
+    <!--
+    使用trim
+    如果开头发现prefixOverrides="and|or|lh" 就替换为where
+    -->
     <select id="findMonsterByName_Trim" resultType="asia.lhweb.entity.Monster">
-
+        select * from `monster`
+        <trim prefix="where" prefixOverrides="and|or|lh">
+            <if test="name != null and name !=''">
+                lh name =#{name}
+            </if>
+            <if test="age != null and age !=''">
+                and `age`>#{age}
+            </if>
+        </trim>
     </select>
-
-
 </mapper>
