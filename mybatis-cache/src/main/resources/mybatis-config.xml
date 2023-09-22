@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 配置 MyBatis 自带的日志输出, 还可以是其它日志比如 SLF4J | LOG4J | LOG4J2 |
+        JDK_LOGGING 等 settings必须放前面-->
+    <settings>
+        <!--选项里自带的就这一个能用-->
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--引入外部的配置文件-->
+    <!--<properties resource="jdbc.properties"/>-->
+
+    <!--配置别名-->
+    <!--方式1-->
+    <!--<typeAliases>-->
+    <!--    <typeAlias alias="Monster" type="asia.lhweb.entity.Monster"/>-->
+    <!--</typeAliases>-->
+    <!--方式2-->
+    <typeAliases>
+        <package name="asia.lhweb.entity"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!--配置事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--配置数据源-->
+            <dataSource type="POOLED">
+                <!--<property name="driver" value="${jdbc.driver}"/>-->
+                <!--<property name="url" value="${jdbc.url}"/>-->
+                <!--<property name="username" value="${jdbc.username}"/>-->
+                <!--<property name="password" value="${jdbc.password}"/>-->
+
+                <!--
+                jdbc:mysql 协议
+                127.0.0.1:3306 ip+端口
+                mybatis 数据库名
+                &amp   &
+                useSSL=true 表示使用安全连接
+                useUnicode=true 防止编码错误
+                characterEncoding=UTF-8 防止中文乱码
+                -->
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/
+                mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <!--
+    配置需要管理的mapper.xml文件
+    -->
+    <mappers>
+        <mapper resource="mapper/MonsterMapper_cache.xml"/>
+        <!--如果是用注解，可不用再引入xml,但是需要引入包含注解的类-->
+        <!--<mapper class="asia.lhweb.mapper.UserMapperAnnotation"/>-->
+        <!--<mapper class="asia.lhweb.mapper.MonsterMapper"/>-->
+        <!--这种方式使用较多。前提是XML文件必须和接口放在一起，并且名字一致。-->
+        <!--<package name="asia.lhweb.mapper"/>-->
+        <!--第四种 url-->
+    </mappers>
+</configuration>

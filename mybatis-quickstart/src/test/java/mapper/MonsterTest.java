@@ -75,13 +75,13 @@ public class MonsterTest {
 
     @Test
     public void getMonsterById(){
-        Monster monster = monsterMapper.getMonsterById(String.valueOf(1));
+        Monster monster = monsterMapper.getMonsterById(1);
         System.out.println(monster);
         res();
     }
     @Test
     public void findAllMonster(){
-        List<Monster> allMonster = monsterMapper.findAllMonster();
+        List<Monster> allMonster = monsterMapper.findAllMonster2();
         for (Monster monster : allMonster) {
             System.out.println(monster);
         }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="asia.lhweb.mapper.MonsterMapper_cache">
+
+
+    <select id="findAllMonster" resultType="Monster_cache">
+        select * from `monster`
+    </select>
+
+    <select id="getMonsterById" parameterType="integer" resultType="Monster_cache">
+        select * from `monster` where id=#{id}
+    </select>
+</mapper>

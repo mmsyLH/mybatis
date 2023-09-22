@@ -35,7 +35,7 @@ public interface MonsterMapper {
      * @return {@link Monster}
      */
     @Select("select * from  monster where id=#{id}")
-    Monster getMonsterById(String id);
+    Monster getMonsterById(Integer id);
 
     //修改 Monster
     void updateMonster(Monster monster);
