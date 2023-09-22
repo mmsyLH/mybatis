@@ -59,8 +59,11 @@
     <mappers>
         <!--<mapper resource="mapper/MonsterMapper.xml"/>-->
         <mapper resource="mapper/IdenCardMapper.xml"/>
+        <mapper resource="mapper/PersonMapper.xml"/>
+        <!--<mapper resource="mapper/IdenCardMapperAnnotation.xml"/>-->
         <!--如果是用注解，可不用再引入xml,但是需要引入包含注解的类-->
-        <!--<mapper class="asia.lhweb.mapper.MonsterAnnotation"/>-->
+        <mapper class="asia.lhweb.mapper.IdenCardMapperAnnotation"/>
+        <mapper class="asia.lhweb.mapper.PersonMapperAnnotation"/>
         <!--这种方式使用较多。前提是XML文件必须和接口放在一起，并且名字一致。-->
         <!--<package name="asia.lhweb.mapper"/>-->
         <!--第四种 url-->

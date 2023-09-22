@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="asia.lhweb.mapper.PersonMapper">
+
+    <!--错误案例：最后属性为空 通过Person的id获取到Person,包括这个Person关联的IdenCard对象[级联查询]-->
+    <!--<select id="getPersonByid" resultType="person" parameterType="integer">-->
+    <!--            select * from person-->
+    <!--                where id=#{id}-->
+    <!--</select>-->
+
+
+    <!--使用resultMap搞定
+        property="card" 表示person对象的card属性
+        javaType="idenCard" 表示card属性的类型
+        column="card_sn" 是从下面查询后返回的字段
+    -->
+    <resultMap id="PersonResultMap" type="person">
+        <!--<result property="id" column="id"/>-->
+        <!--id – 一个 ID 结果；标记出作为 ID 的结果可以帮助提高整体性能
+        property="id" 表示person属性id通常是主键
+        column="id" 表示对应表的字段
+        -->
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="name" column="name"/>
+        <association property="card" javaType="idenCard">
+            <result property="id" column="id"/>
+            <result property="card_sn" column="card_sn"/>
+        </association>
+    </resultMap>
+    <!--可以同时存在resultType，resultMap-->
+    <select id="getPersonByid" resultType="person" parameterType="integer" resultMap="PersonResultMap">
+        select *
+        from person,
+             idencard
+        where person.id = #{id}
+          and person.card_id = `idencard`.id
+    </select>
+    <!--方式2
+    1、通过Person的id获取到Person ,包括这个Person关联的IdenCard对象方式
+    2、public Person getPersonById2(Integer id) ;
+    3．这里的方式和前面不同.
+    1)先通过SELECT * FROM‘person`WHERE id`= #{id}返回 person信息
+    2)再通过返回的card_id 值，再执行操作，得到IdenCard数据
+    -->
+    <resultMap id="PersonResultMap2" type="person">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="name" column="name"/>
+        <!--第二种方式思路
+             本质：将多表联查分解成单表操作 这样简洁，易于维护 复用  推荐！！！！！！！！！！！！！！！！！！！！！！！
+             property="card" 表示persong对象的card属性 来源是查询后的
+             column="card_id" 这个是sql语句  select * from person where id = #{id} 返回的字段card_id字段 是可以改名的
+             返回的字段card_id信息 作为getIdenCardByid方法的入参
+        -->
+        <association property="card" column="lh" select="asia.lhweb.mapper.IdenCardMapper.getIdenCardByid">
+        </association>
+    </resultMap>
+    <select id="getPersonByid2" parameterType="integer" resultType="person" resultMap="PersonResultMap2">
+        select id,`name`,card_id as lh
+        from person
+        where id = #{id}
+    </select>
+</mapper>

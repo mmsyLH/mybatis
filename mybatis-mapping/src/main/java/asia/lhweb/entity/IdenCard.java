@@ -14,5 +14,4 @@ import lombok.NoArgsConstructor;
 public class IdenCard {
     private Integer id;
     private String card_sn;
-
 }
