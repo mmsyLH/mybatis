@@ -18,4 +18,6 @@ public interface MonsterMapper_cache {
     //查询所有的 Monster
     List<Monster_cache> findAllMonster();
     // List<Monster> findMonsterByIdOrName(Monster monster);
+    //修改 Monster
+    void updateMonster(Monster_cache monster);
 }

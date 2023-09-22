@@ -2,6 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asia.lhweb.mapper.MonsterMapper_cache">
+    <update id="updateMonster" parameterType="asia.lhweb.entity.Monster_cache"
+            useGeneratedKeys="true" keyProperty="id" >
+        update monster
+        set `age`=#{age}, `birthday`=#{birthday}, `email`=#{email},`gender`=#{gender},
+            `name`=#{name}, `salary`=#{salary}
+        where id=#{id}
+    </update>
 
 
     <select id="findAllMonster" resultType="Monster_cache">

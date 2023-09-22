@@ -43,6 +43,73 @@ public class MonsterMapperTest {
         }
 
     }
+
+    /**
+     * 测试一级缓存
+     */
+    @Test
+    public void test1(){
+        Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById:"+monsterById);
+
+        Monster_cache monsterById2 = monsterMapper_cache.getMonsterById(6);
+        System.out.println("monsterById2:"+monsterById2);
+
+        System.out.println("因为一级缓存默认是打开的，当你再次查询相同的id时，不会再发出sql语句");
+        Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById3:"+monsterById3);
+    }
+
+    /**
+     * 测试一级缓存失效 第一种情况
+     * 当关闭sqlsession时 一级缓存失效
+     */
+    @Test
+    public void test2(){
+        Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById:"+monsterById);
+
+        if (sqlSession!=null){
+            sqlSession.close();//回归连接池
+        }
+        sqlSession= MybatisUtils.getSqlSession();
+        monsterMapper_cache= sqlSession.getMapper(MonsterMapper_cache.class);
+
+        System.out.println("因为一级缓存默认是打开的，你关闭后，当你再次查询相同的id时，会再发出sql语句");
+        Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById3:"+monsterById3);
+    }
+    /**
+     * 测试一级缓存失效 第二种情况
+     * 当执行sqlsession.clearCache()时 一级缓存失效
+     */
+    @Test
+    public void test3(){
+        Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById:"+monsterById);
+
+        if (sqlSession!=null){
+            sqlSession.clearCache();
+        }
+        System.out.println("因为一级缓存默认是打开的，你关闭后，当你再次查询相同的id时，会再发出sql语句");
+        Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById3:"+monsterById3);
+    }
+    /**
+     * 测试一级缓存失效 第三种情况
+     * 修改了同一个monster对象时 一级缓存失效
+     */
+    @Test
+    public void test4(){
+        Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById:"+monsterById);
+
+
+
+        System.out.println("因为一级缓存默认是打开的，你关闭后，当你再次查询相同的id时，会再发出sql语句");
+        Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById3:"+monsterById3);
+    }
     @After
     public void res(){
         if (sqlSession!=null){
