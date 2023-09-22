@@ -7,8 +7,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="mybatis_quickstart" />
-        <module name="xml-mapper" />
         <module name="dynamic" />
+        <module name="mybatis-mapping" />
+        <module name="xml-mapper" />
       </profile>
     </annotationProcessing>
   </component>

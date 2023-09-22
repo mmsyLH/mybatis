@@ -20,6 +20,7 @@
         <module>mybatis_quickstart</module>
         <module>xml-mapper</module>
         <module>dynamic</module>
+        <module>mybatis-mapping</module>
     </modules>
 
     <properties>
@@ -47,6 +48,13 @@
             <version>4.11</version>
             <!--只在test目录生效-->
             <!--<scope>test</scope>-->
+        </dependency>
+
+        <!--用于简化bean类开发-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
         </dependency>
     </dependencies>
 
