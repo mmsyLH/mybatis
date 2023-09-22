@@ -17,10 +17,11 @@
     modules指定管理哪些子模块
     -->
     <modules>
-        <module>mybatis_quickstart</module>
+        <module>mybatis-quickstart</module>
         <module>xml-mapper</module>
         <module>dynamic</module>
         <module>mybatis-mapping</module>
+        <module>mybatis-cache</module>
     </modules>
 
     <properties>
