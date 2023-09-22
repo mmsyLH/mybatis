@@ -5,13 +5,16 @@
 <configuration>
     <!-- 配置 MyBatis 自带的日志输出, 还可以是其它日志比如 SLF4J | LOG4J | LOG4J2 |
         JDK_LOGGING 等 settings必须放前面-->
+
+    <!--引入外部的配置文件-->
+    <properties resource="jdbc.properties"/>
+
     <settings>
         <!--选项里自带的就这一个能用-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
     </settings>
 
-    <!--引入外部的配置文件-->
-    <!--<properties resource="jdbc.properties"/>-->
+
 
     <!--配置别名-->
     <!--方式1-->
@@ -29,11 +32,10 @@
             <transactionManager type="JDBC"/>
             <!--配置数据源-->
             <dataSource type="POOLED">
-                <!--<property name="driver" value="${jdbc.driver}"/>-->
-                <!--<property name="url" value="${jdbc.url}"/>-->
-                <!--<property name="username" value="${jdbc.username}"/>-->
-                <!--<property name="password" value="${jdbc.password}"/>-->
-
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
                 <!--
                 jdbc:mysql 协议
                 127.0.0.1:3306 ip+端口
@@ -43,11 +45,11 @@
                 useUnicode=true 防止编码错误
                 characterEncoding=UTF-8 防止中文乱码
                 -->
-                <property name="url" value="jdbc:mysql://127.0.0.1:3306/
-                mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
-                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-                <property name="username" value="root"/>
-                <property name="password" value="root"/>
+                <!--<property name="url" value="jdbc:mysql://127.0.0.1:3306/-->
+                <!--mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>-->
+                <!--<property name="driver" value="com.mysql.cj.jdbc.Driver"/>-->
+                <!--<property name="username" value="root"/>-->
+                <!--<property name="password" value="root"/>-->
             </dataSource>
         </environment>
     </environments>

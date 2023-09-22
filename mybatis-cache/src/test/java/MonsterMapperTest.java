@@ -104,12 +104,15 @@ public class MonsterMapperTest {
         Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
         System.out.println("monsterById:"+monsterById);
 
+        monsterById.setName("粟炜精");
 
+        monsterMapper_cache.updateMonster(monsterById);
 
-        System.out.println("因为一级缓存默认是打开的，你关闭后，当你再次查询相同的id时，会再发出sql语句");
+        System.out.println("因为你修改了对象，导致缓存失效，当你再次查询相同的id时，会再发出sql语句");
         Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
         System.out.println("monsterById3:"+monsterById3);
     }
+
     @After
     public void res(){
         if (sqlSession!=null){

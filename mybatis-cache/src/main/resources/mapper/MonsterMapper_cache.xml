@@ -10,7 +10,6 @@
         where id=#{id}
     </update>
 
-
     <select id="findAllMonster" resultType="Monster_cache">
         select * from `monster`
     </select>
