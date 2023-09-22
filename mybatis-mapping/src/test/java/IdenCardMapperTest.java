@@ -6,14 +6,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author :罗汉
  * @date : 2023/9/15
  */
-public class IdenCardTest {
+public class IdenCardMapperTest {
     private SqlSession sqlSession;
     private IdenCardMapper idenCardMapper;
 
@@ -35,31 +32,22 @@ public class IdenCardTest {
         IdenCard idenCardByid = idenCardMapper.getIdenCardByid(1);
         System.out.println(idenCardByid);
     }
+
+    /**
+     * 获得身份证由id2
+     * 返回级联
+     */
+    @Test
+    public void getIdenCardByid2(){
+        IdenCard idenCardByid = idenCardMapper.getIdenCardByid2(1);
+        System.out.println(idenCardByid);
+    }
     @Test
     public void getPersonByid(){
         IdenCard idenCardByid = idenCardMapper.getIdenCardByid(1);
         System.out.println(idenCardByid);
     }
 
-
-    public void showList(List list){
-        for (Object o : list) {
-            System.out.println(o);
-        }
-    }
-    public void showMap(List<Object> mapList ){
-        for (Object o : mapList) {
-            System.out.println("取出的mapList里的monster："+o);
-        }
-    }
-    public void showMap2( List<Map<String, Object>> mapList ){
-        for (Map<String, Object> map : mapList) {
-            System.out.println("取出的mapList里的map："+map);
-            for (Map.Entry<String, Object> entry : map.entrySet()) {
-                // System.out.println("取出的mapList："+entry);
-            }
-        }
-    }
     @After
     public void res(){
         if (sqlSession!=null){

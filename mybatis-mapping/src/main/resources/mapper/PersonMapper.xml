@@ -47,7 +47,6 @@
     <resultMap id="PersonResultMap2" type="person">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
-        <result property="name" column="name"/>
         <!--第二种方式思路
              本质：将多表联查分解成单表操作 这样简洁，易于维护 复用  推荐！！！！！！！！！！！！！！！！！！！！！！！
              property="card" 表示persong对象的card属性 来源是查询后的
@@ -61,5 +60,9 @@
         select id,`name`,card_id as lh
         from person
         where id = #{id}
+    </select>
+
+    <select id="getPersonByCardId" parameterType="integer" resultType="Person">
+                select * from person where card_id=#{cardId}
     </select>
 </mapper>

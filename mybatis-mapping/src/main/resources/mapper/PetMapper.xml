@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="asia.lhweb.mapper.PetMapper">
+
+    <resultMap id="petMapperResultMap" type="pet">
+        <id property="id" column="id"/>
+        <id property="nickname" column="nickname"/>
+        <association property="user" column="user_id" select="asia.lhweb.mapper.UserMapper.getUserByld"/>
+    </resultMap>
+    <select id="getPetByUserld" parameterType="integer" resultMap="petMapperResultMap">
+            select * from mybatis_pet where user_id =#{user_id}
+    </select>
+
+    <select id="getPetByld" parameterType="integer" resultMap="petMapperResultMap">
+        select *
+        from mybatis_pet
+        where id = #{id}
+    </select>
+</mapper>

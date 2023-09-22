@@ -13,7 +13,7 @@ import java.util.Map;
  * @author :罗汉
  * @date : 2023/9/15
  */
-public class PersonTest {
+public class PersonMapperTest {
     private SqlSession sqlSession;
     private PersonMapper personMapper;
 

@@ -1,20 +1,24 @@
 package asia.lhweb.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.List;
 
 /**
  * @author :罗汉
  * @date : 2023/9/22
  */
-@Data
+// @Data
+
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IdenCard {
+public class User {
     private Integer id;
-    private String card_sn;
-
-    //
-    private Person person;
+    private String name;
+    private List<Pet> pets;
 }

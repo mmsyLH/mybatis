@@ -26,4 +26,11 @@ public interface PersonMapper {
      */
     abstract Person getPersonByid2(Integer id);
 
+    /**
+     * 通过card_id查询得到pserson对象
+     *
+     * @param cardId 卡id
+     * @return {@link Person}
+     */
+    abstract Person getPersonByCardId(Integer cardId);
 }

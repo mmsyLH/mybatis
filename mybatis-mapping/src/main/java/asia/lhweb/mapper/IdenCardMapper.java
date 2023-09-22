@@ -14,4 +14,12 @@ public interface IdenCardMapper {
      * @return {@link IdenCard}
      */
     abstract IdenCard getIdenCardByid(Integer id);
+
+    /**
+     * 根据id获取到身份证序列化
+     * 返回的是级联信息
+     * @param id id
+     * @return {@link IdenCard}
+     */
+    abstract IdenCard getIdenCardByid2(Integer id);
 }

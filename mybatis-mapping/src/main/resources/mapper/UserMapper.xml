@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="asia.lhweb.mapper.UserMapper">
+
+    <!--
+        ofType="pet" 设置集合的类型是什么
+    -->
+    <resultMap id="UserResultMap" type="user">
+        <id property="id" column="id"/>
+        <id property="name" column="name"/>
+        <collection property="pets" column="id"
+                    ofType="pet"
+                    select="asia.lhweb.mapper.PetMapper.getPetByUserld"/>
+    </resultMap>
+    <select id="getUserByld" parameterType="integer" resultMap="UserResultMap">
+        select * from mybatis_user
+        where id=#{id}
+    </select>
+</mapper>
