@@ -45,7 +45,7 @@ public class MonsterMapperTest {
     }
 
     /**
-     * 测试一级缓存
+     * 测试一级缓存 默认开启 跟sqlSession有关
      */
     @Test
     public void test1(){
@@ -113,6 +113,24 @@ public class MonsterMapperTest {
         System.out.println("monsterById3:"+monsterById3);
     }
 
+    /**
+     * 测试二级缓存
+     */
+    @Test
+    public void test5(){
+        Monster_cache monsterById = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById:"+monsterById);
+
+        if (sqlSession!=null){
+            sqlSession.close();//回归连接池
+        }
+        sqlSession= MybatisUtils.getSqlSession();
+        monsterMapper_cache= sqlSession.getMapper(MonsterMapper_cache.class);
+
+        System.out.println("因为你配置二级缓存，关闭了sqlsession，当你再次查询相同的id时，不会再发出sql语句");
+        Monster_cache monsterById3 = monsterMapper_cache.getMonsterById(1);
+        System.out.println("monsterById3:"+monsterById3);
+    }
     @After
     public void res(){
         if (sqlSession!=null){

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,12 +17,12 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Monster_cache {
+public class Monster_cache implements Serializable {
     private Integer id;
     private Integer age;
     private String name;
     private String email;
     private Date birthday;
-    private double salary;
+    private Double salary;
     private Integer gender;
 }

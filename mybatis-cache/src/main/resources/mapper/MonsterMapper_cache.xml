@@ -2,19 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="asia.lhweb.mapper.MonsterMapper_cache">
+    <!--
+    1.针对这个monster对象的二级缓存策略和相关设置
+    eviction="FIFO":缓存策略先进先出，
+    flushlnterval="30000":每30000毫秒刷新一次，和数据库保持一致.
+    size:二级缓存设置最大保持的360个对象，超过了，就启用fifo策略处理,默认1024
+    readOnly: 只读，为了提高效率
+    -->
+    <cache
+            eviction="FIFO"
+            flushInterval="60000"
+            size="512"
+            readOnly="true"/>
+
     <update id="updateMonster" parameterType="asia.lhweb.entity.Monster_cache"
-            useGeneratedKeys="true" keyProperty="id" >
+            useGeneratedKeys="true" keyProperty="id">
         update monster
-        set `age`=#{age}, `birthday`=#{birthday}, `email`=#{email},`gender`=#{gender},
-            `name`=#{name}, `salary`=#{salary}
-        where id=#{id}
+        set `age`=#{age},
+            `birthday`=#{birthday},
+            `email`=#{email},
+            `gender`=#{gender},
+            `name`=#{name},
+            `salary`=#{salary}
+        where id = #{id}
     </update>
 
     <select id="findAllMonster" resultType="Monster_cache">
-        select * from `monster`
+        select *
+        from `monster`
     </select>
 
     <select id="getMonsterById" parameterType="integer" resultType="Monster_cache">
-        select * from `monster` where id=#{id}
+        select *
+        from `monster`
+        where id = #{id}
     </select>
 </mapper>

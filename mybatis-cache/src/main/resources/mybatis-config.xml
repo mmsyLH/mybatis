@@ -12,6 +12,8 @@
     <settings>
         <!--选项里自带的就这一个能用-->
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+        <!--全局性地开启或关闭所有映射器配置文件中已配置的任何缓存。 默认ture-->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
 
